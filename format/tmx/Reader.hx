@@ -218,8 +218,14 @@ class Reader
   
   private inline function resolveColor(input:String):Int
   {
-    if (input.charCodeAt(0) == "#".code) return Std.parseInt("0x" + input.substr(1));
-    else return Std.parseInt("0x" + input);
+    if (input.charCodeAt(0) == "#".code) {
+      if (input.length == 7) return Std.parseInt("0x" + input.substr(1)) + 0xFF000000;
+      else return Std.parseInt("0x" + input.substr(1));
+    }
+    else {
+      if (input.length == 6) return Std.parseInt("0x" + input) + 0xFF000000;
+      else return Std.parseInt("0x" + input);
+    }
   }
   
   private inline function resolveRenderOrder(input:String):TmxRenderOrder
